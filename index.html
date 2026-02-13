@@ -215,9 +215,13 @@
     <div class="hint" id="hint">please say yesss 🥺</div>
 
     <section class="result" id="result">
-      <h2>yayyyyyyy! anh yêu em i love u wo ai ní nì ni 💕</h2>
-      <img class="fireworks" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW11b3BpazVkOHpybGJzajViZjE3M3BidmN2NDA4OXlqcmFwcTNwMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif" alt="Fireworks" />
-    </section>
+  <h2>
+    <span>yayyyyyyy! anh yêu em i love u</span>
+    <span>wo ai ní nì ni 💕</span>
+  </h2>
+  <img class="fireworks" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW11b3BpazVkOHpybGJzajViZjE3M3BidmN2NDA4OXlqcmFwcTNwMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif" alt="Fireworks" />
+</section>
+
   </main>
 
   <script>
@@ -261,30 +265,43 @@
     yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
   }
 
-  /* ---------- NO BUTTON RANDOM AROUND CARD ---------- */
-  function moveNoRandom() {
-    const card = document.querySelector("main.card").getBoundingClientRect();
-    const b = noBtn.getBoundingClientRect();
+  /* ---------- NO BUTTON RUNS AWAY LIKE OLD STYLE ---------- */
+function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
-    const centerX = card.width / 2;
-    const centerY = card.height / 2;
-    const radius = Math.min(card.width, card.height) * 0.45;
-    const angle = Math.random() * 2 * Math.PI;
+function moveNo(px, py) {
+  const z = zone.getBoundingClientRect();
+  const b = noBtn.getBoundingClientRect();
 
-    let newLeft = centerX + radius * Math.cos(angle) - b.width / 2;
-    let newTop  = centerY + radius * Math.sin(angle) - b.height / 2;
+  let dx = (b.left + b.width / 2) - px;
+  let dy = (b.top + b.height / 2) - py;
+  let mag = Math.hypot(dx, dy) || 1;
+  dx /= mag;
+  dy /= mag;
 
-    newLeft = Math.max(0, Math.min(newLeft, card.width - b.width));
-    newTop  = Math.max(0, Math.min(newTop, card.height - b.height));
+  let newLeft = (b.left - z.left) + dx * 150;
+  let newTop  = (b.top - z.top) + dy * 150;
 
-    noBtn.style.left = newLeft + "px";
-    noBtn.style.top  = newTop + "px";
+  newLeft = clamp(newLeft, 0, z.width - b.width);
+  newTop  = clamp(newTop, 0, z.height - b.height);
 
-    growYes();
-  }
+  noBtn.style.left = newLeft + "px";
+  noBtn.style.top  = newTop + "px";
+  noBtn.style.transform = "none";
 
-  noBtn.addEventListener("mouseenter", moveNoRandom);
-  noBtn.addEventListener("click", e => e.preventDefault());
+  growYes();
+}
+
+zone.addEventListener("pointermove", e => {
+  const b = noBtn.getBoundingClientRect();
+  const d = Math.hypot(
+    (b.left + b.width / 2) - e.clientX,
+    (b.top + b.height / 2) - e.clientY
+  );
+  if (d < 140) moveNo(e.clientX, e.clientY);
+});
+
+noBtn.addEventListener("click", e => e.preventDefault());
+
 
   /* ---------- YES BUTTON CLICK ---------- */
   yesBtn.addEventListener("click", () => {
@@ -321,6 +338,7 @@
   </audio>
 </body>
 </html>
+
 
 
 
