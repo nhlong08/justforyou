@@ -44,22 +44,30 @@
       z-index: 9999;
     }
 
-    .card {
-  position: relative;   /* THÊM */
-  z-index: 5;           /* THÊM */
-  width: min(720px, 92vw);
-  padding: 26px 22px;
-  text-align: center;
+    .art {
+  width: clamp(140px, 28vw, 200px);
+  margin: 0 auto 25px;
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.15));
+  animation: floatPet 3s ease-in-out infinite;
 }
+
+@keyframes floatPet {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
 
     }
 
     .art {
-      width: min(260px, 80vw);
-      margin: 0 auto 10px;
-      display: block;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
-    }
+  width: clamp(140px, 28vw, 200px);
+  margin: 0 auto 25px;
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.15));
+}
+
 
     h1 {
   font-family: 'Great Vibes', cursive;
@@ -188,6 +196,10 @@
   color: #ff6fa5;
   text-transform: uppercase;
 }
+    .result {
+  margin-top: 30px;
+}
+
 
 
 
@@ -250,7 +262,7 @@
     <!-- HINT -->
     <div class="hint" id="hint">please say yesss 🥺</div>
 
-    <section class="result" id="result">
+    <section class="result" id="result" style="display: none;">
       <h2>yayyyyyyy! anh yêu em i love u wo ai ní nì ni 💕</h2>
       <img
         class="fireworks"
@@ -407,6 +419,7 @@ for (let i = 0; i < 120; i++) {
 
 </body>
 </html>
+
 
 
 
