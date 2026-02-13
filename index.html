@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,6 @@
   <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Great+Vibes&display=swap" rel="stylesheet">
-
-
 
   <style>
     :root {
@@ -34,7 +31,6 @@
       padding: 16px;
     }
 
-    /* FULL-SCREEN CONFETTI CANVAS */
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -45,42 +41,46 @@
     }
 
     .art {
-  width: clamp(140px, 28vw, 200px);
-  margin: 0 auto 25px;
-  display: block;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,.15));
-  animation: floatPet 3s ease-in-out infinite;
-}
-
-@keyframes floatPet {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
-}
-
-
+      width: clamp(140px, 28vw, 200px);
+      margin: 0 auto 25px;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.15));
+      animation: floatPet 3s ease-in-out infinite;
     }
 
-    .art {
-  width: clamp(140px, 28vw, 200px);
-  margin: 0 auto 25px;
-  display: block;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,.15));
-}
+    @keyframes floatPet {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
 
+    h1.name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(40px, 6vw, 70px);
+      margin: 10px 0 10px;
+      color: #ff2e74;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 15px rgba(255,105,180,0.4), 0 0 25px rgba(255,182,193,0.6);
+      animation: glow 2.5s ease-in-out infinite alternate;
+    }
 
-    h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(40px, 6vw, 70px);
-  margin: 20px 0 24px;
-  color: #ff2e74;
-  letter-spacing: 2px;
-  text-shadow:
-    0 4px 15px rgba(255, 105, 180, 0.4),
-    0 0 25px rgba(255, 182, 193, 0.6);
-  animation: glow 2.5s ease-in-out infinite alternate;
-}
+    h2.question {
+      font-size: clamp(24px, 4vw, 36px);
+      margin: 0 0 20px;
+      color: #ff1493;
+    }
 
+    @keyframes glow {
+      from {
+        text-shadow:
+          0 4px 15px rgba(255, 105, 180, 0.4),
+          0 0 25px rgba(255, 182, 193, 0.6);
+      }
+      to {
+        text-shadow:
+          0 6px 25px rgba(255, 20, 147, 0.7),
+          0 0 40px rgba(255, 105, 180, 0.9);
+      }
     }
 
     .button-zone {
@@ -104,7 +104,6 @@
       cursor: pointer;
       box-shadow: 0 10px 24px rgba(0,0,0,.14);
       user-select: none;
-      -webkit-tap-highlight-color: transparent;
       transition: transform .12s ease, background .12s ease;
     }
 
@@ -122,20 +121,20 @@
     }
 
     .hint {
-  margin-top: 14px;
-  font-size: 26px;              /* TO HƠN */
-  font-family: 'Dancing Script', cursive;  /* FONT MỚI */
-  opacity: 0.9;
-  color: #ff2e74;
-  text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
-}
-
+      margin-top: 14px;
+      font-size: 26px;
+      font-family: 'Great Vibes', cursive;
+      opacity: 0.9;
+      color: #ff2e74;
+      text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+      text-align: center;
     }
 
     .result {
       display: none;
-      margin-top: 18px;
+      margin-top: 30px;
       animation: pop .35s ease;
+      text-align: center;
     }
 
     .result h2 {
@@ -153,57 +152,21 @@
       from { transform: scale(.96); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-    @keyframes glow {
-  from {
-    text-shadow:
-      0 4px 15px rgba(255, 105, 180, 0.4),
-      0 0 25px rgba(255, 182, 193, 0.6);
-  }
-  to {
-    text-shadow:
-      0 6px 25px rgba(255, 20, 147, 0.7),
-      0 0 40px rgba(255, 105, 180, 0.9);
-  }
-}
 
     .floating-flower {
-  position: fixed;
-  pointer-events: none;
-  will-change: transform;
-  animation: drift infinite ease-in-out alternate;
-  z-index: 0; 
-}
+      position: fixed;
+      pointer-events: none;
+      will-change: transform;
+      animation: drift infinite ease-in-out alternate;
+      z-index: 0; 
+    }
 
-@keyframes drift {
-  0% {
-    transform: translate(0px, 0px) rotate(0deg);
-  }
-  30% {
-    transform: translate(40px, -60px) rotate(120deg);
-  }
-  60% {
-    transform: translate(-50px, -100px) rotate(240deg);
-  }
-  100% {
-    transform: translate(30px, -40px) rotate(360deg);
-  }
-}
-    .cute {
-  display: block;
-  font-family: 'Playfair Display', serif;
-  font-size: 0.5em;
-  letter-spacing: 4px;
-  margin-bottom: 10px;
-  color: #ff6fa5;
-  text-transform: uppercase;
-}
-    .result {
-  margin-top: 30px;
-}
-
-
-
-
+    @keyframes drift {
+      0% { transform: translate(0px,0px) rotate(0deg); }
+      30% { transform: translate(40px,-60px) rotate(120deg); }
+      60% { transform: translate(-50px,-100px) rotate(240deg); }
+      100% { transform: translate(30px,-40px) rotate(360deg); }
+    }
   </style>
 </head>
 
@@ -223,53 +186,37 @@
           <stop offset="1" stop-color="#ff1f68"/>
         </linearGradient>
       </defs>
-
       <path d="M250 50 C250 33 270 25 282 38
                C294 25 314 33 314 50
                C314 78 282 92 282 106
-               C282 92 250 78 250 50Z"
-            fill="url(#heart)"/>
-
+               C282 92 250 78 250 50Z" fill="url(#heart)"/>
       <path d="M90 120 C90 70 140 40 190 60
                C240 40 290 70 290 120
                C290 180 240 210 190 210
-               C140 210 90 180 90 120Z"
-            fill="url(#fur)"/>
-
+               C140 210 90 180 90 120Z" fill="url(#fur)"/>
       <path d="M110 92 L95 55 L140 78 Z" fill="#f2a97b"/>
       <path d="M270 92 L285 55 L240 78 Z" fill="#f2a97b"/>
-
       <circle cx="160" cy="130" r="8"/>
       <circle cx="220" cy="130" r="8"/>
-
       <path d="M190 144 C186 144 182 148 182 152
                C182 160 190 164 190 170
                C190 164 198 160 198 152
-               C198 148 194 144 190 144Z"
-            fill="#ff7aa2"/>
+               C198 148 194 144 190 144Z" fill="#ff7aa2"/>
     </svg>
 
-    <h1>
-  <span class="cute">ngố ơiii</span>
-  will you be my valentine?
-</h1>
-
+    <h1 class="name">Ngố ơi</h1>
+    <h2 class="question">will you be my valentine?</h2>
 
     <section class="button-zone" id="zone">
       <button id="yesBtn">Yes</button>
       <button id="noBtn">No</button>
     </section>
 
-    <!-- HINT -->
     <div class="hint" id="hint">please say yesss 🥺</div>
 
-    <section class="result" id="result" style="display: none;">
+    <section class="result" id="result">
       <h2>yayyyyyyy! anh yêu em i love u wo ai ní nì ni 💕</h2>
-      <img
-        class="fireworks"
-        src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW11b3BpazVkOHpybGJzajViZjE3M3BidmN2NDA4OXlqcmFwcTNwMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif"
-        alt="Fireworks"
-      />
+      <img class="fireworks" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW11b3BpazVkOHpybGJzajViZjE3M3BidmN2NDA4OXlqcmFwcTNwMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif" alt="Fireworks" />
     </section>
   </main>
 
@@ -295,34 +242,15 @@
     window.addEventListener("resize", resizeConfettiCanvas);
     window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
 
-    const confettiInstance = confetti.create(confettiCanvas, {
-      resize: false,
-      useWorker: true
-    });
+    const confettiInstance = confetti.create(confettiCanvas, { resize: false, useWorker: true });
 
     function fullScreenConfetti() {
       const end = Date.now() + 1600;
-
       (function frame() {
-        confettiInstance({
-          particleCount: 12,
-          spread: 90,
-          startVelocity: 45,
-          ticks: 180,
-          origin: { x: Math.random(), y: Math.random() * 0.3 }
-        });
+        confettiInstance({ particleCount: 12, spread: 90, startVelocity: 45, ticks: 180, origin: { x: Math.random(), y: Math.random() * 0.3 }});
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
-
-      setTimeout(() => {
-        confettiInstance({
-          particleCount: 300,
-          spread: 140,
-          startVelocity: 60,
-          ticks: 220,
-          origin: { x: 0.5, y: 0.55 }
-        });
-      }, 300);
+      setTimeout(() => { confettiInstance({ particleCount: 300, spread: 140, startVelocity: 60, ticks: 220, origin: { x: 0.5, y: 0.55 }}); }, 300);
     }
 
     /* ---------- YES BUTTON GROWS ---------- */
@@ -332,29 +260,23 @@
       yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
     }
 
-    /* ---------- NO BUTTON RUNS AWAY ---------- */
-    function clamp(n, min, max) {
-      return Math.max(min, Math.min(max, n));
-    }
+    /* ---------- NO BUTTON RUNS AROUND YES ---------- */
+    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
-    function moveNo(px, py) {
+    function moveNo() {
       const z = zone.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
+      const yesB = yesBtn.getBoundingClientRect();
 
-      let dx = (b.left + b.width / 2) - px;
-      let dy = (b.top + b.height / 2) - py;
-      let mag = Math.hypot(dx, dy) || 1;
-      dx /= mag;
-      dy /= mag;
-
-      let newLeft = (b.left - z.left) + dx * 150;
-      let newTop  = (b.top - z.top) + dy * 150;
+      const moveRange = 80;
+      let newLeft = (yesB.left - z.left) + (Math.random() * 2 - 1) * moveRange;
+      let newTop  = (yesB.top - z.top) + (Math.random() * 2 - 1) * moveRange;
 
       newLeft = clamp(newLeft, 0, z.width - b.width);
       newTop  = clamp(newTop, 0, z.height - b.height);
 
       noBtn.style.left = newLeft + "px";
-      noBtn.style.top = newTop + "px";
+      noBtn.style.top  = newTop + "px";
       noBtn.style.transform = "none";
 
       growYes();
@@ -362,70 +284,41 @@
 
     zone.addEventListener("pointermove", e => {
       const b = noBtn.getBoundingClientRect();
-      const d = Math.hypot(
-        (b.left + b.width / 2) - e.clientX,
-        (b.top + b.height / 2) - e.clientY
-      );
-      if (d < 140) moveNo(e.clientX, e.clientY);
+      const d = Math.hypot((b.left + b.width/2) - e.clientX, (b.top + b.height/2) - e.clientY);
+      if (d < 100) moveNo();
     });
 
     noBtn.addEventListener("click", e => e.preventDefault());
 
-    /* ---------- YES CLICK ---------- */
     yesBtn.addEventListener("click", () => {
       document.getElementById("bgMusic").play();
       zone.style.display = "none";
-      hint.style.display = "none";     // HIDE THE HINT
+      hint.style.display = "none";
       result.style.display = "block";
       resizeConfettiCanvas();
       fullScreenConfetti();
     });
-    /* ===== POETIC SCATTERED FLOWERS ===== */
 
-const flowers = ["🌸","🌷","🌼","🌺","💮","🌹"];
-
-function createFlower() {
-  const f = document.createElement("div");
-  f.className = "floating-flower";
-  f.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-
-  // vị trí ngẫu nhiên khắp màn hình
-  f.style.left = Math.random() * 100 + "vw";
-  f.style.top = Math.random() * 100 + "vh";
-
-  // kích thước ngẫu nhiên
-  const size = 18 + Math.random() * 40;
-  f.style.fontSize = size + "px";
-
-  // độ mờ tạo chiều sâu
-  f.style.opacity = 0.08 + Math.random() * 0.35;
-
-  // tốc độ khác nhau
-  f.style.animationDuration = (20 + Math.random() * 25) + "s";
-
-  document.body.appendChild(f);
-}
-
-/* số lượng hoa ở đây */
-for (let i = 0; i < 120; i++) {
-  createFlower();
-}
-
-
+    /* ---------- FLOWERS ---------- */
+    const flowers = ["🌸","🌷","🌼","🌺","💮","🌹"];
+    function createFlower() {
+      const f = document.createElement("div");
+      f.className = "floating-flower";
+      f.textContent = flowers[Math.floor(Math.random()*flowers.length)];
+      f.style.left = Math.random() * 100 + "vw";
+      f.style.top = Math.random() * 100 + "vh";
+      const size = 18 + Math.random() * 40;
+      f.style.fontSize = size + "px";
+      f.style.opacity = 0.08 + Math.random() * 0.35;
+      f.style.animationDuration = (20 + Math.random() * 25) + "s";
+      document.body.appendChild(f);
+    }
+    for (let i=0;i<120;i++) createFlower();
   </script>
-  
-  <audio id="bgMusic" loop>
-  <source src="OnlyC ft. Karik - Anh Không Đòi Quà (Lyrics Video).mp3" type="audio/mpeg">
-</audio>
 
+  <audio id="bgMusic" loop>
+    <source src="OnlyC ft. Karik - Anh Không Đòi Quà (Lyrics Video).mp3" type="audio/mpeg">
+  </audio>
 </body>
 </html>
-
-
-
-
-
-
-
-
 
