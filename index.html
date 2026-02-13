@@ -138,9 +138,12 @@
     }
 
     .result h2 {
-      font-size: clamp(30px, 4.5vw, 46px);
-      margin: 10px 0;
-    }
+  font-size: clamp(30px, 4.5vw, 46px);
+  margin: 10px 0;
+  line-height: 1.4;       /* tăng khoảng cách giữa 2 dòng */
+  text-align: center;     /* căn giữa 2 dòng */
+}
+
 
     .fireworks {
       width: min(380px, 90vw);
@@ -216,11 +219,14 @@
 
     <section class="result" id="result">
   <h2>
-    <span>yayyyyyyy! anh yêu em i love u</span>
-    <span>wo ai ní nì ni 💕</span>
+    yayyyyyyy! anh yêu em i love u<br>
+    wo ai ní nì ni 💕
   </h2>
-  <img class="fireworks" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW11b3BpazVkOHpybGJzajViZjE3M3BidmN2NDA4OXlqcmFwcTNwMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif" alt="Fireworks" />
+  <img class="fireworks"
+       src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bW11b3BpazVkOHpybGJzajViZjE3M3BidmN2NDA4OXlqcmFwcTNwMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BOPz50G5Cf2Y5XS9Ba/giphy.gif"
+       alt="Fireworks" />
 </section>
+
 
   </main>
 
@@ -338,6 +344,7 @@ noBtn.addEventListener("click", e => e.preventDefault());
   </audio>
 </body>
 </html>
+
 
 
 
