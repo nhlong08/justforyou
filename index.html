@@ -260,27 +260,43 @@
       yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
     }
 
-    /* ---------- NO BUTTON RUNS AROUND YES ---------- */
-    function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+  /* ---------- NO BUTTON RANDOM AROUND CARD ---------- */
+function moveNoRandom() {
+  const card = document.querySelector("main.card").getBoundingClientRect();
+  const b = noBtn.getBoundingClientRect();
 
-    function moveNo() {
-      const z = zone.getBoundingClientRect();
-      const b = noBtn.getBoundingClientRect();
-      const yesB = yesBtn.getBoundingClientRect();
+  // Tâm của card
+  const centerX = card.width / 2;
+  const centerY = card.height / 2;
 
-      const moveRange = 80;
-      let newLeft = (yesB.left - z.left) + (Math.random() * 2 - 1) * moveRange;
-      let newTop  = (yesB.top - z.top) + (Math.random() * 2 - 1) * moveRange;
+  // Bán kính random (tối đa ~45% của chiều nhỏ hơn)
+  const radius = Math.min(card.width, card.height) * 0.45;
 
-      newLeft = clamp(newLeft, 0, z.width - b.width);
-      newTop  = clamp(newTop, 0, z.height - b.height);
+  // Góc random
+  const angle = Math.random() * 2 * Math.PI;
 
-      noBtn.style.left = newLeft + "px";
-      noBtn.style.top  = newTop + "px";
-      noBtn.style.transform = "none";
+  // Tính vị trí mới
+  let newLeft = centerX + radius * Math.cos(angle) - b.width / 2;
+  let newTop  = centerY + radius * Math.sin(angle) - b.height / 2;
 
-      growYes();
-    }
+  // Giới hạn trong card
+  newLeft = Math.max(0, Math.min(newLeft, card.width - b.width));
+  newTop  = Math.max(0, Math.min(newTop, card.height - b.height));
+
+  noBtn.style.left = newLeft + "px";
+  noBtn.style.top  = newTop + "px";
+
+  growYes();
+}
+
+zone.addEventListener("pointermove", e => {
+  const b = noBtn.getBoundingClientRect();
+  const d = Math.hypot(
+    (b.left + b.width / 2) - e.clientX,
+    (b.top + b.height / 2) - e.clientY
+  );
+  if (d < 100) moveNoRandom();
+});
 
     zone.addEventListener("pointermove", e => {
       const b = noBtn.getBoundingClientRect();
@@ -321,4 +337,5 @@
   </audio>
 </body>
 </html>
+
 
