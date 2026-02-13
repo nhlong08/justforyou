@@ -126,34 +126,25 @@
     .floating-flower {
   position: fixed;
   pointer-events: none;
-  animation: floatY linear infinite;
   will-change: transform;
+  animation: drift infinite ease-in-out alternate;
 }
 
-.floating-flower span {
-  display: block;
-  animation: sway 6s ease-in-out infinite alternate;
+@keyframes drift {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  30% {
+    transform: translate(40px, -60px) rotate(120deg);
+  }
+  60% {
+    transform: translate(-50px, -100px) rotate(240deg);
+  }
+  100% {
+    transform: translate(30px, -40px) rotate(360deg);
+  }
 }
 
-/* rơi nhẹ theo chiều dọc */
-@keyframes floatY {
-  from {
-    transform: translateY(110vh);
-  }
-  to {
-    transform: translateY(-10vh);
-  }
-}
-
-/* lắc lư sang trái phải */
-@keyframes sway {
-  from {
-    transform: translateX(-20px) rotate(-10deg);
-  }
-  to {
-    transform: translateX(20px) rotate(10deg);
-  }
-}
 
   </style>
 </head>
@@ -327,32 +318,35 @@
       resizeConfettiCanvas();
       fullScreenConfetti();
     });
-    /* ===== POETIC FLOATING FLOWERS ===== */
+    /* ===== POETIC SCATTERED FLOWERS ===== */
 
-const bgFlowers = ["🌸","🌷","🌼","🌺","💮","🌹"];
+const flowers = ["🌸","🌷","🌼","🌺","💮","🌹"];
 
-function createFloatingFlower() {
-  const wrapper = document.createElement("div");
-  wrapper.className = "floating-flower";
+function createFlower() {
+  const f = document.createElement("div");
+  f.className = "floating-flower";
+  f.textContent = flowers[Math.floor(Math.random() * flowers.length)];
 
-  const flower = document.createElement("span");
-  flower.textContent = bgFlowers[Math.floor(Math.random() * bgFlowers.length)];
+  // vị trí ngẫu nhiên khắp màn hình
+  f.style.left = Math.random() * 100 + "vw";
+  f.style.top = Math.random() * 100 + "vh";
 
+  // kích thước ngẫu nhiên
   const size = 18 + Math.random() * 40;
-  wrapper.style.left = Math.random() * 100 + "vw";
-  wrapper.style.animationDuration = (18 + Math.random() * 20) + "s";
-  wrapper.style.animationDelay = Math.random() * 10 + "s";
-  wrapper.style.opacity = 0.1 + Math.random() * 0.25;
+  f.style.fontSize = size + "px";
 
-  flower.style.fontSize = size + "px";
+  // độ mờ tạo chiều sâu
+  f.style.opacity = 0.08 + Math.random() * 0.35;
 
-  wrapper.appendChild(flower);
-  document.body.appendChild(wrapper);
+  // tốc độ khác nhau
+  f.style.animationDuration = (20 + Math.random() * 25) + "s";
+
+  document.body.appendChild(f);
 }
 
-/* tạo nhiều hoa hơn */
-for (let i = 0; i < 150; i++) {
-  createFloatingFlower();
+/* số lượng hoa ở đây */
+for (let i = 0; i < 130; i++) {
+  createFlower();
 }
 
 
@@ -364,6 +358,7 @@ for (let i = 0; i < 150; i++) {
 
 </body>
 </html>
+
 
 
 
