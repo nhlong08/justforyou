@@ -221,115 +221,99 @@
   </main>
 
   <script>
-    const zone = document.getElementById("zone");
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const result = document.getElementById("result");
-    const hint = document.getElementById("hint");
+  const zone = document.getElementById("zone");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const result = document.getElementById("result");
+  const hint = document.getElementById("hint");
 
-    /* ---------- CONFETTI ---------- */
-    const confettiCanvas = document.getElementById("confettiCanvas");
+  /* ---------- CONFETTI ---------- */
+  const confettiCanvas = document.getElementById("confettiCanvas");
 
-    function resizeConfettiCanvas() {
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-      confettiCanvas.width = Math.floor(window.innerWidth * dpr);
-      confettiCanvas.height = Math.floor(window.innerHeight * dpr);
-      confettiCanvas.style.width = "100vw";
-      confettiCanvas.style.height = "100vh";
-    }
+  function resizeConfettiCanvas() {
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    confettiCanvas.width = Math.floor(window.innerWidth * dpr);
+    confettiCanvas.height = Math.floor(window.innerHeight * dpr);
+    confettiCanvas.style.width = "100vw";
+    confettiCanvas.style.height = "100vh";
+  }
+  resizeConfettiCanvas();
+  window.addEventListener("resize", resizeConfettiCanvas);
+  window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
 
-    resizeConfettiCanvas();
-    window.addEventListener("resize", resizeConfettiCanvas);
-    window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
+  const confettiInstance = confetti.create(confettiCanvas, { resize: false, useWorker: true });
 
-    const confettiInstance = confetti.create(confettiCanvas, { resize: false, useWorker: true });
+  function fullScreenConfetti() {
+    const end = Date.now() + 1600;
+    (function frame() {
+      confettiInstance({ particleCount: 12, spread: 90, startVelocity: 45, ticks: 180, origin: { x: Math.random(), y: Math.random() * 0.3 }});
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+    setTimeout(() => {
+      confettiInstance({ particleCount: 300, spread: 140, startVelocity: 60, ticks: 220, origin: { x: 0.5, y: 0.55 }});
+    }, 300);
+  }
 
-    function fullScreenConfetti() {
-      const end = Date.now() + 1600;
-      (function frame() {
-        confettiInstance({ particleCount: 12, spread: 90, startVelocity: 45, ticks: 180, origin: { x: Math.random(), y: Math.random() * 0.3 }});
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      setTimeout(() => { confettiInstance({ particleCount: 300, spread: 140, startVelocity: 60, ticks: 220, origin: { x: 0.5, y: 0.55 }}); }, 300);
-    }
-
-    /* ---------- YES BUTTON GROWS ---------- */
-    let yesScale = 1;
-    function growYes() {
-      yesScale = Math.min(2.2, yesScale + 0.1);
-      yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
-    }
+  /* ---------- YES BUTTON GROWS ---------- */
+  let yesScale = 1;
+  function growYes() {
+    yesScale = Math.min(2.2, yesScale + 0.1);
+    yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
+  }
 
   /* ---------- NO BUTTON RANDOM AROUND CARD ---------- */
-function moveNoRandom() {
-  const card = document.querySelector("main.card").getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
+  function moveNoRandom() {
+    const card = document.querySelector("main.card").getBoundingClientRect();
+    const b = noBtn.getBoundingClientRect();
 
-  // Tâm của card
-  const centerX = card.width / 2;
-  const centerY = card.height / 2;
+    const centerX = card.width / 2;
+    const centerY = card.height / 2;
+    const radius = Math.min(card.width, card.height) * 0.45;
+    const angle = Math.random() * 2 * Math.PI;
 
-  // Bán kính random (tối đa ~45% của chiều nhỏ hơn)
-  const radius = Math.min(card.width, card.height) * 0.45;
+    let newLeft = centerX + radius * Math.cos(angle) - b.width / 2;
+    let newTop  = centerY + radius * Math.sin(angle) - b.height / 2;
 
-  // Góc random
-  const angle = Math.random() * 2 * Math.PI;
+    newLeft = Math.max(0, Math.min(newLeft, card.width - b.width));
+    newTop  = Math.max(0, Math.min(newTop, card.height - b.height));
 
-  // Tính vị trí mới
-  let newLeft = centerX + radius * Math.cos(angle) - b.width / 2;
-  let newTop  = centerY + radius * Math.sin(angle) - b.height / 2;
+    noBtn.style.left = newLeft + "px";
+    noBtn.style.top  = newTop + "px";
 
-  // Giới hạn trong card
-  newLeft = Math.max(0, Math.min(newLeft, card.width - b.width));
-  newTop  = Math.max(0, Math.min(newTop, card.height - b.height));
+    growYes();
+  }
 
-  noBtn.style.left = newLeft + "px";
-  noBtn.style.top  = newTop + "px";
+  noBtn.addEventListener("mouseenter", moveNoRandom);
+  noBtn.addEventListener("click", e => e.preventDefault());
 
-  growYes();
-}
+  /* ---------- YES BUTTON CLICK ---------- */
+  yesBtn.addEventListener("click", () => {
+    document.getElementById("bgMusic").play();
+    zone.style.display = "none";                     // ẩn button
+    hint.style.display = "none";                     // ẩn hint
+    document.querySelector("h1.name").style.display = "none";  // ẩn h1
+    document.querySelector("h2.question").style.display = "none"; // ẩn h2
+    result.style.display = "block";                  // hiện result
+    resizeConfettiCanvas();
+    fullScreenConfetti();
+  });
 
-zone.addEventListener("pointermove", e => {
-  const b = noBtn.getBoundingClientRect();
-  const d = Math.hypot(
-    (b.left + b.width / 2) - e.clientX,
-    (b.top + b.height / 2) - e.clientY
-  );
-  if (d < 100) moveNoRandom();
-});
-
-    zone.addEventListener("pointermove", e => {
-      const b = noBtn.getBoundingClientRect();
-      const d = Math.hypot((b.left + b.width/2) - e.clientX, (b.top + b.height/2) - e.clientY);
-      if (d < 100) moveNo();
-    });
-
-    noBtn.addEventListener("click", e => e.preventDefault());
-
-    yesBtn.addEventListener("click", () => {
-      document.getElementById("bgMusic").play();
-      zone.style.display = "none";
-      hint.style.display = "none";
-      result.style.display = "block";
-      resizeConfettiCanvas();
-      fullScreenConfetti();
-    });
-
-    /* ---------- FLOWERS ---------- */
-    const flowers = ["🌸","🌷","🌼","🌺","💮","🌹"];
-    function createFlower() {
-      const f = document.createElement("div");
-      f.className = "floating-flower";
-      f.textContent = flowers[Math.floor(Math.random()*flowers.length)];
-      f.style.left = Math.random() * 100 + "vw";
-      f.style.top = Math.random() * 100 + "vh";
-      const size = 18 + Math.random() * 40;
-      f.style.fontSize = size + "px";
-      f.style.opacity = 0.08 + Math.random() * 0.35;
-      f.style.animationDuration = (20 + Math.random() * 25) + "s";
-      document.body.appendChild(f);
-    }
-    for (let i=0;i<120;i++) createFlower();
+  /* ---------- FLOWERS ---------- */
+  const flowers = ["🌸","🌷","🌼","🌺","💮","🌹"];
+  function createFlower() {
+    const f = document.createElement("div");
+    f.className = "floating-flower";
+    f.textContent = flowers[Math.floor(Math.random()*flowers.length)];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.top = Math.random() * 100 + "vh";
+    const size = 18 + Math.random() * 40;
+    f.style.fontSize = size + "px";
+    f.style.opacity = 0.08 + Math.random() * 0.35;
+    f.style.animationDuration = (20 + Math.random() * 25) + "s";
+    document.body.appendChild(f);
+  }
+  for (let i=0;i<120;i++) createFlower();
+    
   </script>
 
   <audio id="bgMusic" loop>
@@ -337,5 +321,6 @@ zone.addEventListener("pointermove", e => {
   </audio>
 </body>
 </html>
+
 
 
