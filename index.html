@@ -292,6 +292,7 @@
 
     /* ---------- YES CLICK ---------- */
     yesBtn.addEventListener("click", () => {
+      document.getElementById("bgMusic").play();
       zone.style.display = "none";
       hint.style.display = "none";     // HIDE THE HINT
       result.style.display = "block";
@@ -299,5 +300,11 @@
       fullScreenConfetti();
     });
   </script>
+  
+  <audio id="bgMusic" loop>
+  <source src="Forever Star偷偷藏不住電視劇插曲 -  張洢豪Wherever you goIll surround you still動態歌詞.mp3" type="audio/mpeg">
+</audio>
+
 </body>
 </html>
+
